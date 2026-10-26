@@ -1,45 +1,29 @@
-# ==========================================
-# Python Runtime & Byte-compiled files
-# ==========================================
+# Python
 __pycache__/
 *.py[cod]
-*$py.class
-
-# ==========================================
-# Virtual Environments (Local Isolation)
-# ==========================================
+.venv/
 venv/
-env/
 
-# ==========================================
-# Database (Security & Data Protection)
-# ==========================================
-db.sqlite3
-db.sqlite3-journal
-
-# ==========================================
-# Environment Variables & Secrets
-# ==========================================
+# Django
+backend/db.sqlite3
+backend/db.sqlite3-journal
+backend/staticfiles/
+backend/frontend_dist/
 .env
 
-# ==========================================
-# Testing & Coverage Artifacts
-# ==========================================
+# Node
+node_modules/
+frontend/dist/
+*.tsbuildinfo
+
+# Test & coverage
 .coverage
 htmlcov/
-.pytest_cache/
+coverage/
 
-# ==========================================
-# IDE & OS Generated Files
-# ==========================================
+# IDE / OS
 .idea/
 .vscode/
 .DS_Store
 Thumbs.db
-
-# ==========================================
-# Django Specific Uploads & Static Roots
-# ==========================================
-media/
-staticfiles/
 *.log

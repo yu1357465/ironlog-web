@@ -1,0 +1,130 @@
+@import 'tailwindcss';
+
+/* Colour tokens match the Android app (ironlog-android ui/theme/Theme.kt). */
+:root {
+  --bg: #f5f6f8;
+  --card: #ffffff;
+  --text: #1c2024;
+  --muted: #68717b;
+  --line: #e3e6ea;
+  --outline: #c9cfd6;
+  --field: #eceff2;
+  --primary: #00897b;
+  --on-primary: #ffffff;
+  --primary-soft: #d5f0ec;
+  --on-primary-soft: #00382f;
+  --success: #2e9e6a;
+  --success-soft: #e4f5ec;
+  --warn: #e07000;
+  --warn-soft: #ffe7cc;
+  --danger: #d93a3a;
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #111315;
+    --card: #1a1d20;
+    --text: #e5e7e9;
+    --muted: #9ba4ad;
+    --line: #2e3338;
+    --outline: #4a5157;
+    --field: #262a2e;
+    --primary: #4db6ac;
+    --on-primary: #00201b;
+    --primary-soft: #0f3d37;
+    --on-primary-soft: #b3e8e1;
+    --success: #5ccb94;
+    --success-soft: #173226;
+    --warn: #ffa64d;
+    --warn-soft: #4a2a06;
+    --danger: #ff8a80;
+    color-scheme: dark;
+  }
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-card: var(--card);
+  --color-text: var(--text);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-outline: var(--outline);
+  --color-field: var(--field);
+  --color-primary: var(--primary);
+  --color-on-primary: var(--on-primary);
+  --color-primary-soft: var(--primary-soft);
+  --color-on-primary-soft: var(--on-primary-soft);
+  --color-success: var(--success);
+  --color-success-soft: var(--success-soft);
+  --color-warn: var(--warn);
+  --color-warn-soft: var(--warn-soft);
+  --color-danger: var(--danger);
+  --font-sans: system-ui, -apple-system, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', 'Noto Sans SC', sans-serif;
+}
+
+html,
+body {
+  background: var(--bg);
+  color: var(--text);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Native <dialog> as a centred card on desktop and a bottom sheet on phones. */
+dialog.sheet {
+  margin: auto;
+  padding: 0;
+  border: none;
+  background: var(--card);
+  color: var(--text);
+  border-radius: 20px;
+  width: min(32rem, calc(100vw - 2rem));
+  max-height: calc(100dvh - 2rem);
+}
+dialog.sheet::backdrop {
+  background: rgb(0 0 0 / 0.4);
+}
+@media (max-width: 640px) {
+  dialog.sheet {
+    margin: auto 0 0 0;
+    width: 100vw;
+    max-width: 100vw;
+    border-radius: 20px 20px 0 0;
+    max-height: 92dvh;
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  dialog.sheet[open] {
+    animation: sheet-in 160ms ease-out;
+  }
+}
+.toast-host:popover-open {
+  position: fixed;
+  inset: auto 0 5.5rem 0;
+  margin: 0 auto;
+  padding: 0 1rem;
+  border: none;
+  background: transparent;
+  overflow: visible;
+  display: flex;
+  justify-content: center;
+  pointer-events: none;
+}
+/* Desktop: sit above the sticky "finish workout" button. */
+@media (min-width: 768px) {
+  .toast-host:popover-open {
+    bottom: 5.5rem;
+  }
+}
+
+@keyframes sheet-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+}
