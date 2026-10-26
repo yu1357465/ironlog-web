@@ -1,10 +1,11 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import {
-  Check, ChevronDown, Dumbbell, GripVertical, LineChart, MoreVertical, Pin, Plus, RefreshCw, Repeat, SquarePen, Trash2,
+  Check, ChevronDown, GripVertical, LineChart, MoreVertical, Pin, Plus, RefreshCw, Repeat, SquarePen, Trash2,
 } from 'lucide-react'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useProfile } from '../App'
+import { AppMark } from '../brand'
 import { api, type ActiveItem, type Workout } from '../api'
 import { TrendChart } from '../charts'
 import { formatShortDate, formatVolume, formatWeight, fromKg, unitLabel, type Unit } from '../format'
@@ -75,7 +76,7 @@ export default function TodayPage() {
   }
 
   if (workout.isError) {
-    return <EmptyState icon={<Dumbbell />} title={t('somethingWrong')} body={workout.error.message}
+    return <EmptyState icon={<AppMark size={30} />} title={t('somethingWrong')} body={workout.error.message}
                        action={<Button onClick={() => workout.refetch()}>{t('retry')}</Button>} />
   }
 
@@ -132,7 +133,7 @@ export default function TodayPage() {
       <div className="flex-1 space-y-2.5 px-4 pt-4 md:px-0">
         {workout.isPending && <div className="py-16 text-center text-muted">{t('loading')}</div>}
         {w && items.length === 0 && (
-          <EmptyState icon={<Dumbbell />} title={t('today.emptyTitle')}
+          <EmptyState icon={<AppMark size={30} />} title={t('today.emptyTitle')}
                       body={w.plan ? t('today.emptyDay') : t('today.emptyNoPlan')}
                       action={<Button onClick={() => setAdding(true)}><Plus size={18} />{t('today.addExercise')}</Button>} />
         )}

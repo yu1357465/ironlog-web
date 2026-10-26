@@ -1,8 +1,9 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { ArrowLeft, Dumbbell, GripVertical, Plus, SquarePen, X } from 'lucide-react'
+import { ArrowLeft, GripVertical, Plus, SquarePen, X } from 'lucide-react'
 import { useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useProfile } from '../App'
+import { AppMark } from '../brand'
 import { api, type DayDetail, type DayItem } from '../api'
 import { formatWeight, unitLabel, type Unit } from '../format'
 import { useI18n } from '../i18n'
@@ -37,7 +38,7 @@ export default function DayPage() {
   const items = day.data?.items ?? []
   const reorder = useReorder(items, i => i.id, ids => run(() => api.reorderDayItems(dayId, ids)))
 
-  if (day.isError) return <EmptyState icon={<Dumbbell />} title={t('somethingWrong')} body={day.error.message}
+  if (day.isError) return <EmptyState icon={<AppMark size={30} />} title={t('somethingWrong')} body={day.error.message}
                                       action={<Button onClick={() => navigate('/plans')}>{t('nav.plans')}</Button>} />
 
   return (
@@ -50,7 +51,7 @@ export default function DayPage() {
         <Button onClick={() => setAdding(true)}><Plus size={18} />{t('add')}</Button>
       </>} />
       {day.isSuccess && !items.length && (
-        <EmptyState icon={<Dumbbell />} title={t('plans.noExercises')} body={t('plans.dayEmptyBody')} />
+        <EmptyState icon={<AppMark size={30} />} title={t('plans.noExercises')} body={t('plans.dayEmptyBody')} />
       )}
       <div className="space-y-2 px-4 md:px-0">
         {reorder.order.map(item => (

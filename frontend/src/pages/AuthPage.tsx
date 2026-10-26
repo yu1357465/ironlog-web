@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { Dumbbell } from 'lucide-react'
 import { useState } from 'react'
 import { setSignedIn } from '../App'
+import { AppLogo } from '../brand'
 import { api } from '../api'
 import { browserLang, useI18n } from '../i18n'
 import { Button, Card, TextField } from '../ui'
@@ -21,9 +21,7 @@ export default function AuthPage() {
     <div className="flex min-h-dvh items-center justify-center px-4">
       <div className="w-full max-w-sm">
         <div className="mb-8 text-center">
-          <div className="mx-auto mb-4 flex size-14 items-center justify-center rounded-2xl bg-primary text-on-primary">
-            <Dumbbell size={28} />
-          </div>
+          <AppLogo size={64} className="mx-auto mb-4" />
           <h1 className="text-3xl font-bold tracking-tight">IronLog</h1>
           <p className="mt-2 text-sm text-muted">{t('auth.tagline')}</p>
         </div>

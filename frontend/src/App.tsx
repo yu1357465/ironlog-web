@@ -1,5 +1,6 @@
 import { useQuery, type QueryClient } from '@tanstack/react-query'
-import { BarChart3, BookOpen, CalendarRange, Dumbbell, History, Settings } from 'lucide-react'
+import { BarChart3, BookOpen, CalendarRange, History, Settings } from 'lucide-react'
+import { AppLogo, AppMark } from './brand'
 import { lazy, Suspense, type ReactNode } from 'react'
 import { Navigate, NavLink, Route, Routes } from 'react-router-dom'
 import { api, type Me, type Profile } from './api'
@@ -44,16 +45,16 @@ export default function App() {
 }
 
 function Splash() {
-  return <div className="flex h-dvh items-center justify-center text-muted"><Dumbbell className="animate-pulse" /></div>
+  return <div className="flex h-dvh items-center justify-center text-muted"><AppLogo size={48} className="animate-pulse" /></div>
 }
 
-const NAV: { to: string; key: TKey; icon: ReactNode; mobile: boolean }[] = [
-  { to: '/', key: 'nav.today', icon: <Dumbbell size={22} />, mobile: true },
-  { to: '/plans', key: 'nav.plans', icon: <CalendarRange size={22} />, mobile: true },
-  { to: '/history', key: 'nav.history', icon: <History size={22} />, mobile: true },
-  { to: '/stats', key: 'nav.stats', icon: <BarChart3 size={22} />, mobile: true },
-  { to: '/library', key: 'nav.library', icon: <BookOpen size={22} />, mobile: false },
-  { to: '/settings', key: 'nav.settings', icon: <Settings size={22} />, mobile: true },
+const NAV: { to: string; key: TKey; icon: (active: boolean) => ReactNode; mobile: boolean }[] = [
+  { to: '/', key: 'nav.today', icon: (active: boolean) => <AppMark size={22} filled={active} />, mobile: true },
+  { to: '/plans', key: 'nav.plans', icon: () => <CalendarRange size={22} />, mobile: true },
+  { to: '/history', key: 'nav.history', icon: () => <History size={22} />, mobile: true },
+  { to: '/stats', key: 'nav.stats', icon: () => <BarChart3 size={22} />, mobile: true },
+  { to: '/library', key: 'nav.library', icon: () => <BookOpen size={22} />, mobile: false },
+  { to: '/settings', key: 'nav.settings', icon: () => <Settings size={22} />, mobile: true },
 ]
 
 function Shell() {
@@ -62,7 +63,7 @@ function Shell() {
     <div className="mx-auto flex min-h-dvh max-w-6xl">
       <nav className="sticky top-0 hidden h-dvh w-60 shrink-0 flex-col gap-1 px-4 py-6 md:flex">
         <div className="mb-6 flex items-center gap-2 px-3 text-lg font-bold">
-          <span className="flex size-8 items-center justify-center rounded-lg bg-primary text-on-primary"><Dumbbell size={18} /></span>
+          <AppLogo size={32} />
           IronLog
         </div>
         {NAV.map(n => (
@@ -70,7 +71,7 @@ function Shell() {
             'flex items-center gap-3 rounded-xl px-3 py-2.5 text-[15px] font-medium transition',
             isActive ? 'bg-primary-soft text-on-primary-soft' : 'text-muted hover:bg-field hover:text-text',
           )}>
-            {n.icon}{t(n.key)}
+            {({ isActive }) => <>{n.icon(isActive)}{t(n.key)}</>}
           </NavLink>
         ))}
       </nav>
@@ -96,7 +97,7 @@ function Shell() {
             'flex flex-1 flex-col items-center gap-0.5 py-2 text-[11px] font-medium',
             isActive ? 'text-primary' : 'text-muted',
           )}>
-            {n.icon}{t(n.key)}
+            {({ isActive }) => <>{n.icon(isActive)}{t(n.key)}</>}
           </NavLink>
         ))}
       </nav>
